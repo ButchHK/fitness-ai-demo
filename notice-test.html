@@ -5131,11 +5131,11 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
   position:fixed;
   z-index:99999;
   top:22px;
-  right:16px;
+  left:var(--demo-notice-center,50%);
   width:min(380px,calc(100vw - 32px));
   padding:11px 15px 11px 22px;
   box-sizing:border-box;
-  transform:translateX(calc(100% + 34px));
+  transform:translateX(calc(-50% + 120%));
   border:1px solid #e4e8ee;
   border-radius:9px;
   background:#ffffff;
@@ -5173,7 +5173,7 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
 #demoStartupNotice.is-visible{
   opacity:1;
   visibility:visible;
-  transform:translateX(0);
+  transform:translateX(-50%);
   transition:transform .28s cubic-bezier(.2,.85,.3,1),opacity .18s ease,visibility 0s;
 }
 </style>
@@ -5188,11 +5188,26 @@ window.showDemoStartupNotice = function(){
   const el = document.getElementById('demoStartupNotice');
   if(!el || el.dataset.shown === '1') return;
   el.dataset.shown = '1';
+
+  const syncPosition = () => {
+    const app = document.querySelector('.app');
+    if(!app) return;
+    const rect = app.getBoundingClientRect();
+    el.style.setProperty('--demo-notice-center', (rect.left + rect.width / 2) + 'px');
+  };
+
+  syncPosition();
+  window.addEventListener('resize', syncPosition);
+
   setTimeout(() => {
+    syncPosition();
     el.classList.add('is-visible');
     setTimeout(() => el.classList.remove('is-visible'), 1850);
-    setTimeout(() => el.remove(), 2200);
-  }, 450);
+    setTimeout(() => {
+      window.removeEventListener('resize', syncPosition);
+      el.remove();
+    }, 2200);
+  }, 3000);
 };
 </script>
 

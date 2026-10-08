@@ -5126,12 +5126,19 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
   }
 }
 
-/* Demo-only startup notice: fixed overlay, does not affect app geometry. */
-#demoStartupNotice{
-  position:fixed;
+/* Demo-only startup notice: anchored inside .app, does not affect app geometry. */
+.demo-startup-notice-anchor{
+  position:relative;
   z-index:99999;
-  top:22px;
-  left:var(--demo-notice-center,50%);
+  width:100%;
+  height:0;
+  overflow:visible;
+  pointer-events:none;
+}
+#demoStartupNotice{
+  position:absolute;
+  top:4px;
+  left:50%;
   width:min(380px,calc(100vw - 32px));
   padding:11px 15px 11px 22px;
   box-sizing:border-box;
@@ -5179,39 +5186,26 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
 </style>
 </head>
 <body class="program-mode">
-<div id="demoStartupNotice" role="status" aria-live="polite">
-  <strong>Демонстрационная версия</strong>
-  <span class="demo-startup-sub">Все данные вымышлены</span>
-</div>
 <script>
 window.showDemoStartupNotice = function(){
   const el = document.getElementById('demoStartupNotice');
   if(!el || el.dataset.shown === '1') return;
   el.dataset.shown = '1';
-
-  const syncPosition = () => {
-    const app = document.querySelector('.app');
-    if(!app) return;
-    const rect = app.getBoundingClientRect();
-    el.style.setProperty('--demo-notice-center', (rect.left + rect.width / 2) + 'px');
-  };
-
-  syncPosition();
-  window.addEventListener('resize', syncPosition);
-
   setTimeout(() => {
-    syncPosition();
     el.classList.add('is-visible');
     setTimeout(() => el.classList.remove('is-visible'), 1850);
-    setTimeout(() => {
-      window.removeEventListener('resize', syncPosition);
-      el.remove();
-    }, 2200);
+    setTimeout(() => el.remove(), 2200);
   }, 3000);
 };
 </script>
 
 <div class="app">
+  <div class="demo-startup-notice-anchor" aria-hidden="true">
+    <div id="demoStartupNotice" role="status" aria-live="polite">
+      <strong>Демонстрационная версия</strong>
+      <span class="demo-startup-sub">Все данные вымышлены</span>
+    </div>
+  </div>
   <div id="status" class="status">Загрузка демо-данных...</div>
 
 

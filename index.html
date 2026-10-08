@@ -5130,41 +5130,58 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
 #demoStartupNotice{
   position:fixed;
   z-index:99999;
-  top:50%;
-  left:50%;
-  width:max-content;
-  max-width:calc(100vw - 32px);
-  padding:12px 16px;
+  top:22px;
+  right:16px;
+  width:min(380px,calc(100vw - 32px));
+  padding:11px 15px 11px 22px;
   box-sizing:border-box;
-  transform:translate(-50%,-50%) scale(.98);
-  border:1px solid #9dbff0;
-  border-radius:10px;
-  background:linear-gradient(180deg,#86afe8,#729cd9);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(0,0,0,.14),0 10px 26px rgba(0,0,0,.24);
-  color:#10233e;
-  font:600 13px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  letter-spacing:.01em;
-  text-align:center;
+  transform:translateX(calc(100% + 34px));
+  border:1px solid #e4e8ee;
+  border-radius:9px;
+  background:#ffffff;
+  box-shadow:0 8px 24px rgba(15,23,42,.14),0 2px 7px rgba(15,23,42,.08);
+  color:#111827;
+  font:500 13px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  letter-spacing:0;
+  text-align:left;
   pointer-events:none;
   opacity:0;
   visibility:hidden;
-  transition:opacity .3s ease, transform .3s ease, visibility 0s linear .3s;
+  transition:transform .28s cubic-bezier(.2,.85,.3,1),opacity .22s ease,visibility 0s linear .28s;
+}
+#demoStartupNotice::before{
+  content:"";
+  position:absolute;
+  left:7px;
+  top:7px;
+  bottom:7px;
+  width:4px;
+  border-radius:999px;
+  background:#29a8f5;
 }
 #demoStartupNotice strong{
-  color:#10233e;
-  font-weight:750;
+  display:block;
+  margin:0 0 3px;
+  color:#111827;
+  font-weight:700;
+}
+#demoStartupNotice .demo-startup-sub{
+  display:block;
+  color:#7b8491;
+  font-weight:400;
 }
 #demoStartupNotice.is-visible{
   opacity:1;
   visibility:visible;
-  transform:translate(-50%,-50%) scale(1);
-  transition:opacity .25s ease, transform .25s ease, visibility 0s;
+  transform:translateX(0);
+  transition:transform .28s cubic-bezier(.2,.85,.3,1),opacity .18s ease,visibility 0s;
 }
 </style>
 </head>
 <body class="program-mode">
 <div id="demoStartupNotice" role="status" aria-live="polite">
-  <strong>Демонстрационная версия</strong> · все данные вымышлены
+  <strong>Демонстрационная версия</strong>
+  <span class="demo-startup-sub">Все данные вымышлены</span>
 </div>
 <script>
 window.showDemoStartupNotice = function(){
@@ -5173,9 +5190,9 @@ window.showDemoStartupNotice = function(){
   el.dataset.shown = '1';
   setTimeout(() => {
     el.classList.add('is-visible');
-    setTimeout(() => el.classList.remove('is-visible'), 1700);
-    setTimeout(() => el.remove(), 2050);
-  }, 100);
+    setTimeout(() => el.classList.remove('is-visible'), 1850);
+    setTimeout(() => el.remove(), 2200);
+  }, 450);
 };
 </script>
 

@@ -5137,7 +5137,7 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
 }
 #demoStartupNotice{
   position:absolute;
-  top:50vh;
+  top:calc(50vh - 18px);
   left:50%;
   width:min(380px,calc(100vw - 32px));
   padding:16px 15px 16px 22px;
@@ -5180,8 +5180,13 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
 #demoStartupNotice.is-visible{
   opacity:1;
   visibility:visible;
-  transform:translateX(-50%);
+  transform:translate(-50%,-50%);
   transition:transform .42s cubic-bezier(.22,.72,.28,1),opacity .24s ease,visibility 0s;
+}
+@media (hover:hover) and (pointer:fine){
+  #demoStartupNotice{
+    top:calc(40vh - 18px);
+  }
 }
 </style>
 </head>

@@ -5189,6 +5189,38 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
   }
 }
 </style>
+
+<style id="active-round-geometry-test">
+/* TEST ONLY — active workout geometry.
+   No behavior/data changes. */
+
+/* Octagonal controls -> true circles. */
+body:is([data-theme="graphite"],[data-theme="nutrition"]) #activeScreen .set-no,
+body:is([data-theme="graphite"],[data-theme="nutrition"]) #activeScreen .done-btn,
+body:is([data-theme="graphite"],[data-theme="nutrition"]) #activeScreen .exercise-nav{
+  border-radius:50% !important;
+  clip-path:none !important;
+}
+
+/* Keep existing two-layer state styling, but make the inner layers circular too. */
+body:is([data-theme="graphite"],[data-theme="nutrition"]) #activeScreen .done-btn::before,
+body:is([data-theme="graphite"],[data-theme="nutrition"]) #activeScreen .exercise-nav::before{
+  border-radius:50% !important;
+  clip-path:none !important;
+}
+
+/* Weight / reps fields -> ordinary rounded rectangles. */
+body:is([data-theme="graphite"],[data-theme="nutrition"]) #activeScreen .value-shell{
+  border-radius:10px !important;
+  clip-path:none !important;
+  overflow:hidden !important;
+}
+body:is([data-theme="graphite"],[data-theme="nutrition"]) #activeScreen .value-shell input{
+  border-radius:9px !important;
+  clip-path:none !important;
+}
+</style>
+
 </head>
 <body class="program-mode">
 <script>

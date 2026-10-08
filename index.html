@@ -7,6 +7,12 @@
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMxMTE4MjAiLz48cGF0aCBkPSJNMTcgMThoMzB2OEgyN3Y4aDE3djhIMjd2MTRIMTd6IiBmaWxsPSIjOGZiN2Q4Ii8+PC9zdmc+">
 <style>
 :root{
+  <div class="demo-startup-notice-anchor" aria-hidden="true">
+    <div id="demoStartupNotice" role="status" aria-live="polite">
+      <strong>Демонстрационная версия</strong>
+      <span class="demo-startup-sub">Все данные вымышлены</span>
+    </div>
+  </div>
   --bg:#111418; --panel:#171a1e; --panel2:#0a0c0f; --panel3:#1d2127;
   --text:#f5f6f7; --muted:#9ba2ac; --line:#2b3037; --accent:#2d6df6;
   --ok:#15b976; --rest:#8f8412;
@@ -5126,56 +5132,84 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
   }
 }
 
-/* Demo-only startup notice: fixed overlay, does not affect app geometry. */
-#demoStartupNotice{
-  position:fixed;
+/* Demo-only startup notice: anchored inside .app, does not affect app geometry. */
+.demo-startup-notice-anchor{
+  position:relative;
   z-index:99999;
-  top:50%;
+  width:100%;
+  height:0;
+  overflow:visible;
+  pointer-events:none;
+}
+#demoStartupNotice{
+  position:absolute;
+  top:calc(50vh - 18px);
   left:50%;
-  width:max-content;
-  max-width:calc(100vw - 32px);
-  padding:12px 16px;
+  width:min(380px,calc(100vw - 32px));
+  padding:16px 15px 16px 22px;
   box-sizing:border-box;
-  transform:translate(-50%,-50%) scale(.98);
-  border:1px solid #9dbff0;
-  border-radius:10px;
-  background:linear-gradient(180deg,#86afe8,#729cd9);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(0,0,0,.14),0 10px 26px rgba(0,0,0,.24);
-  color:#10233e;
-  font:600 13px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  letter-spacing:.01em;
-  text-align:center;
+  transform:translate(calc(-50% + 120%),-50%);
+  border:1px solid #e4e8ee;
+  border-radius:9px;
+  background:#ffffff;
+  box-shadow:0 8px 24px rgba(15,23,42,.14),0 2px 7px rgba(15,23,42,.08);
+  color:#111827;
+  font:500 13px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  letter-spacing:0;
+  text-align:left;
   pointer-events:none;
   opacity:0;
   visibility:hidden;
-  transition:opacity .3s ease, transform .3s ease, visibility 0s linear .3s;
+  transition:transform .42s cubic-bezier(.22,.72,.28,1),opacity .28s ease,visibility 0s linear .42s;
+}
+#demoStartupNotice::before{
+  content:"";
+  position:absolute;
+  left:7px;
+  top:7px;
+  bottom:7px;
+  width:4px;
+  border-radius:999px;
+  background:#29a8f5;
 }
 #demoStartupNotice strong{
-  color:#10233e;
-  font-weight:750;
+  display:block;
+  margin:0 0 3px;
+  color:#111827;
+  font-weight:700;
+}
+#demoStartupNotice .demo-startup-sub{
+  display:block;
+  color:#7b8491;
+  font-weight:400;
 }
 #demoStartupNotice.is-visible{
   opacity:1;
   visibility:visible;
-  transform:translate(-50%,-50%) scale(1);
-  transition:opacity .25s ease, transform .25s ease, visibility 0s;
+  transform:translate(-50%,-50%);
+  transition:transform .42s cubic-bezier(.22,.72,.28,1),opacity .24s ease,visibility 0s;
+}
+@media (hover:hover) and (pointer:fine){
+  #demoStartupNotice{
+    top:calc(40vh - 18px);
+  }
 }
 </style>
 </head>
 <body class="program-mode">
-<div id="demoStartupNotice" role="status" aria-live="polite">
-  <strong>Демонстрационная версия</strong> · все данные вымышлены
-</div>
 <script>
+window.demoStartupNoticeStartedAt = performance.now();
 window.showDemoStartupNotice = function(){
   const el = document.getElementById('demoStartupNotice');
   if(!el || el.dataset.shown === '1') return;
   el.dataset.shown = '1';
+  const elapsed = performance.now() - window.demoStartupNoticeStartedAt;
+  const remainingDelay = Math.max(0, 1000 - elapsed);
   setTimeout(() => {
     el.classList.add('is-visible');
-    setTimeout(() => el.classList.remove('is-visible'), 1700);
-    setTimeout(() => el.remove(), 2050);
-  }, 100);
+    setTimeout(() => el.classList.remove('is-visible'), 2850);
+    setTimeout(() => el.remove(), 3350);
+  }, remainingDelay);
 };
 </script>
 

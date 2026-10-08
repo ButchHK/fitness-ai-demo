@@ -5187,15 +5187,18 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
 </head>
 <body class="program-mode">
 <script>
+window.demoStartupNoticeStartedAt = performance.now();
 window.showDemoStartupNotice = function(){
   const el = document.getElementById('demoStartupNotice');
   if(!el || el.dataset.shown === '1') return;
   el.dataset.shown = '1';
+  const elapsed = performance.now() - window.demoStartupNoticeStartedAt;
+  const remainingDelay = Math.max(0, 3000 - elapsed);
   setTimeout(() => {
     el.classList.add('is-visible');
     setTimeout(() => el.classList.remove('is-visible'), 1850);
     setTimeout(() => el.remove(), 2200);
-  }, 3000);
+  }, remainingDelay);
 };
 </script>
 

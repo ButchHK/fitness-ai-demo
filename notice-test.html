@@ -832,7 +832,7 @@ body.nutrition-mode .bottom-nav{
   left:50%;
   right:auto;
   width:min(100%,460px);
-  transform:translateX(-50%);
+  transform:translate(-50%,-50%);
 }
 body.nutrition-mode .bottom-nav-inner{width:100%}
 
@@ -5137,12 +5137,12 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
 }
 #demoStartupNotice{
   position:absolute;
-  top:4px;
+  top:50vh;
   left:50%;
   width:min(380px,calc(100vw - 32px));
   padding:11px 15px 11px 22px;
   box-sizing:border-box;
-  transform:translateX(calc(-50% + 120%));
+  transform:translate(calc(-50% + 120%),-50%);
   border:1px solid #e4e8ee;
   border-radius:9px;
   background:#ffffff;

@@ -5140,7 +5140,7 @@ body:is([data-theme="graphite"],[data-theme="nutrition"]) #metricDetailScreen .m
   top:50vh;
   left:50%;
   width:min(380px,calc(100vw - 32px));
-  padding:11px 15px 11px 22px;
+  padding:16px 15px 16px 22px;
   box-sizing:border-box;
   transform:translate(calc(-50% + 120%),-50%);
   border:1px solid #e4e8ee;
@@ -5193,7 +5193,7 @@ window.showDemoStartupNotice = function(){
   if(!el || el.dataset.shown === '1') return;
   el.dataset.shown = '1';
   const elapsed = performance.now() - window.demoStartupNoticeStartedAt;
-  const remainingDelay = Math.max(0, 3000 - elapsed);
+  const remainingDelay = Math.max(0, 1000 - elapsed);
   setTimeout(() => {
     el.classList.add('is-visible');
     setTimeout(() => el.classList.remove('is-visible'), 1850);
